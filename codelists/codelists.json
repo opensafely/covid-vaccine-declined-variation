@@ -12,11 +12,11 @@
       "downloaded_at": "2021-04-13 15:03:59.415279Z",
       "sha": "ab5b5f60e8525af5898ec1066fc820501b8e5e29"
     },
-    "opensafely-atrial-fibrillation-clinical-finding.csv": {
-      "id": "opensafely/atrial-fibrillation-clinical-finding/2020-07-09",
-      "url": "https://codelists.opensafely.org/codelist/opensafely/atrial-fibrillation-clinical-finding/2020-07-09/",
-      "downloaded_at": "2021-04-15 08:38:26.280641Z",
-      "sha": "edccc1a96570988b7e92a7a6e44cdee70a0ac179"
+    "primis-covid19-vacc-uptake-cov1decl.csv": {
+      "id": "primis-covid19-vacc-uptake/cov1decl/v1.1",
+      "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/cov1decl/v1.1/",
+      "downloaded_at": "2021-04-20 12:40:00.489023Z",
+      "sha": "c8f6ef075bb2f267ee8524453967ba927703fe9d"
     }
   }
 }
