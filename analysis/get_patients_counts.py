@@ -8,9 +8,9 @@ patients_total = {}
 for file in os.listdir('output'):
 
         if file.startswith('input_2'):
-            date = file.split('_')[-1][:-4]
+            date = file.split('_')[-1][:-7]
 
-            df = pd.read_csv(os.path.join('output', file))
+            df = pd.read_csv(os.path.join('output', file), compression='gzip')
             
             patients = np.unique(df['patient_id'][df['event']==1])
 
