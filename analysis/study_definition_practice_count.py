@@ -12,10 +12,9 @@ from cohortextractor import (
 
 from codelists import *
 from datetime import date
+from config import start_date, end_date
 
 
-start_date = "2020-12-07"
-end_date = "2021-02-01"
 # Specifiy study definition
 
 study = StudyDefinition(
