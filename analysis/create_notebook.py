@@ -154,7 +154,7 @@ md(f"## Total {marker} Number")
 """
 
 output_total_plot = """\
-plot_measures(data_dict['total'], title=f"Total {marker} across whole population", column_to_plot='rate', category=False, y_label='Rate per 1000')
+plot_measures(data_dict['total'], title=f"Total {marker} across whole population", column_to_plot='rate', category=False, y_label='Rate per 1000', interactive=False)
 """
 
 output_event_codes = """\
@@ -209,7 +209,7 @@ for d in range(len(demographics)):
     nb['cells'].append(nbf.v4.new_code_cell(cell_counts))
     
     cell_plot = """\
-    plot_measures(data_dict[demographics[i]], title=f'Breakdown by {demographics[i]}', column_to_plot='rate_standardised', category=demographics[i], y_label='Standardised Rate per 1000')
+    plot_measures(data_dict[demographics[i]], title=f'Breakdown by {demographics[i]}', column_to_plot='rate_standardised', category=demographics[i], y_label='Standardised Rate per 1000', interactive=False)
     i+=1
     """
     nb['cells'].append(nbf.v4.new_code_cell(cell_plot))
