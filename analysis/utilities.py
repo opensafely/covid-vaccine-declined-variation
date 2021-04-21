@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 import os
 from urllib.request import urlopen
 from pandas.api.types import is_numeric_dtype
+from ebmdatalab import charts
 
 # https://github.com/ebmdatalab/datalab-pandas/blob/master/ebmdatalab/charts.py#L20
 def add_percentiles(df, period_column=None, column=None, show_outer_percentiles=True):
@@ -441,12 +442,12 @@ def calculate_statistics_demographics(df, demographic_var, end_date, event_colum
     counts_df = counts_df.rename(columns={"total": "Total Study Period", "year": "Within Last Year", "months_3": "Within Last 3 Months"})
     return counts_df
 
-def interactive_deciles_chart(
+def deciles_chart(
     df,
     period_column=None,
     column=None,
     title="",
-    ylabel=""
+    ylabel="", interactive=True
 ):
     """period_column must be dates / datetimes
     """
@@ -458,61 +459,72 @@ def interactive_deciles_chart(
         show_outer_percentiles=False,
     )
 
-    fig = go.Figure()
+    if interactive:
+        fig = go.Figure()
 
-    
+        
 
-    for percentile in np.unique(df['percentile']):
-        df_subset = df[df['percentile'] == percentile]
-        if percentile == 50:
-            fig.add_trace(go.Scatter(x=df_subset[period_column], y=df_subset[column], line={
-                          "color": "blue", "dash": "solid", "width": 1.2}, name="median"))
-        else:
-            fig.add_trace(go.Scatter(x=df_subset[period_column], y=df_subset[column], line={
-                          "color": "blue", "dash": "dash", "width": 1}, name=f"decile {int(percentile/10)}"))
+        for percentile in np.unique(df['percentile']):
+            df_subset = df[df['percentile'] == percentile]
+            if percentile == 50:
+                fig.add_trace(go.Scatter(x=df_subset[period_column], y=df_subset[column], line={
+                            "color": "blue", "dash": "solid", "width": 1.2}, name="median"))
+            else:
+                fig.add_trace(go.Scatter(x=df_subset[period_column], y=df_subset[column], line={
+                            "color": "blue", "dash": "dash", "width": 1}, name=f"decile {int(percentile/10)}"))
 
-     # Set title
-    fig.update_layout(
-        title_text=title,
-        hovermode='x',
-        title_x=0.5,
+        # Set title
+        fig.update_layout(
+            title_text=title,
+            hovermode='x',
+            title_x=0.5,
 
 
-    )
-
-    fig.update_yaxes(title=ylabel)
-    fig.update_xaxes(title="Date")
-
-    # Add range slider
-    fig.update_layout(
-        xaxis=go.layout.XAxis(
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1,
-                         label="1m",
-                         step="month",
-                         stepmode="backward"),
-                    dict(count=6,
-                         label="6m",
-                         step="month",
-                         stepmode="backward"),
-
-                    dict(count=1,
-                         label="1y",
-                         step="year",
-                         stepmode="backward"),
-                    dict(step="all")
-                ])
-            ),
-            rangeslider=dict(
-                visible=True
-            ),
-            type="date"
         )
-    )
 
-    fig.show()
+        fig.update_yaxes(title=ylabel)
+        fig.update_xaxes(title="Date")
 
+        # Add range slider
+        fig.update_layout(
+            xaxis=go.layout.XAxis(
+                rangeselector=dict(
+                    buttons=list([
+                        dict(count=1,
+                            label="1m",
+                            step="month",
+                            stepmode="backward"),
+                        dict(count=6,
+                            label="6m",
+                            step="month",
+                            stepmode="backward"),
+
+                        dict(count=1,
+                            label="1y",
+                            step="year",
+                            stepmode="backward"),
+                        dict(step="all")
+                    ])
+                ),
+                rangeslider=dict(
+                    visible=True
+                ),
+                type="date"
+            )
+        )
+
+        fig.show()
+    else:
+
+       charts.deciles_chart(
+        df,
+        period_column=period_column,
+        column=column,
+        title=title,
+        ylabel=ylabel,
+        show_outer_percentiles=False,
+        show_legend=True,
+    ) 
 
 path = "european_standard_population.csv"
 ## European standardisation data from:
