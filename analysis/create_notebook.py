@@ -177,7 +177,7 @@ practices_dict =calculate_statistics_practices(data_dict['practice'], practice_d
 print(f'Practices included entire period: {practices_dict["total"]["number"]} ({practices_dict["total"]["percent"]}%)')
 print(f'Practices included within last year: {practices_dict["year"]["number"]} ({practices_dict["year"]["percent"]}%)')
 print(f'Practices included within last 3 months: {practices_dict["months_3"]["number"]} ({practices_dict["months_3"]["percent"]}%)')
-interactive_deciles_chart(data_dict['practice'], period_column='date', column='event', title='Decile chart',ylabel='rate per 1000')
+deciles_chart(data_dict['practice'], period_column='date', column='event', title='Decile chart',ylabel='rate per 1000', interactive=False)
 """
 
 nb['cells'] = [
