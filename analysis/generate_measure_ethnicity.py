@@ -7,11 +7,11 @@ for file in os.listdir('output'):
 
     if file.startswith('input'):
         #exclude ethnicity and practice
-        if file.split('_')[1] not in ['ethnicity.csv', 'practice']:
+        if file.split('_')[1] not in ['ethnicity.csv.gz', 'practice']:
             
             file_path = os.path.join('output', file)
             date = file.split('_')[1][:-4]
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path, compression='gzip')
             df['date'] = date
             
             ethnicity_data.append(df)
